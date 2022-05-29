@@ -1,8 +1,4 @@
 version: "3"
 services:
-    point-bot-beta:
+    timer-bot:
         build: ./
-        volumes:
-            - point-bot-beta:/home/point-bot
-volumes:
-    point-bot-beta:
