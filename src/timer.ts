@@ -19,7 +19,7 @@ async function setTimer(time: number, channelId: string) {
   var executed = false;
   currentTimers[id - 1].addEventListener("secondsUpdated", async (e: TimerEvent) => {
 
-    let secondsRemaining = currentTimers[id - 1].getTotalTimeValues().seconds;
+    let secondsRemaining = currentTimers[id - 1].getTimeValues().seconds + (currentTimers[id - 1].getTimeValues().minutes * 60) + (currentTimers[id - 1].getTimeValues().hours * 3600);
 
     logger.info(`Timer ${id} updated to ${secondsRemaining} seconds`);
 
@@ -31,7 +31,7 @@ async function setTimer(time: number, channelId: string) {
         executed = true;
       }
     }
-    if (e.detail.timer.getTimeValues().seconds < 1) {
+    if (secondsRemaining < 1) {
       // @ts-ignore
       await message.edit({
         content: `Timer \`${id}\` has ended`
