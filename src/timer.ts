@@ -19,7 +19,7 @@ async function setTimer(time: number, channelId: string) {
   var executed = false;
   currentTimers[id - 1].addEventListener("secondsUpdated", async (e: TimerEvent) => {
 
-    let secondsRemaining = e.detail.timer.getTotalTimeValues().seconds;
+    let secondsRemaining = currentTimers[id - 1].getTotalTimeValues().seconds;
 
     logger.info(`Timer ${id} updated to ${secondsRemaining} seconds`);
 
