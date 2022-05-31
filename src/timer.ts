@@ -20,11 +20,12 @@ async function setTimer(time: number, channelId: string) {
   currentTimers[id - 1].addEventListener("secondsUpdated", async (e: TimerEvent) => {
     logger.info(`Timer ${id} updated to ${e.detail.timer.getTimeValues().seconds} seconds`);
 
-    if (e.detail.timer.getTimeValues().seconds <= 10) {
-      logger.debug(`<t:${Date.now() + e.detail.timer.getTimeValues().seconds}:R>`);
+    let secondsRemaining = e.detail.timer.getTimeValues().seconds + (e.detail.timer.getTimeValues() * 60) + (e.detail.timer.getTimeValues().hour * 3600);
+
+    if (secondsRemaining <= 10) {
       if (!executed) {
         message = await channel.send({
-          content: `Timer \`${id}\` will end <t:${Math.round(Date.now() / 1000) + e.detail.timer.getTimeValues().seconds}:R>`
+          content: `Timer \`${id}\` will end <t:${Math.round(Date.now() / 1000) + secondsRemaining}:R>`
         });
         executed = true;
       }
