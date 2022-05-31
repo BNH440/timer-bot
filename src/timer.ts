@@ -18,9 +18,10 @@ async function setTimer(time: number, channelId: string) {
   let message: Message;
   var executed = false;
   currentTimers[id - 1].addEventListener("secondsUpdated", async (e: TimerEvent) => {
-    logger.info(`Timer ${id} updated to ${e.detail.timer.getTimeValues().seconds} seconds`);
 
-    let secondsRemaining = e.detail.timer.getTimeValues().seconds + (e.detail.timer.getTimeValues().minutes * 60) + (e.detail.timer.getTimeValues().hours * 3600);
+    let secondsRemaining = e.detail.timer.getTotalTimeValues().seconds;
+
+    logger.info(`Timer ${id} updated to ${secondsRemaining} seconds`);
 
     if (secondsRemaining <= 10) {
       if (!executed) {
